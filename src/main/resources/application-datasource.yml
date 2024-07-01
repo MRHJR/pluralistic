@@ -1,0 +1,78 @@
+spring:
+  dynamic:
+    primary: master
+    strict: false
+  datasource:
+    master:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    type: com.alibaba.druid.pool.DruidDataSource #设置自己的数据源类型，不设置就是使用的默认的
+    url: jdbc:mysql://localhost:3306/pluralistic?useEncode=true&characterEncoding=utf8&serverTimezone=Asia/Shanghai    #jdbc:mysql://101.43.64.231:3306/mall?useEncode=true&characterEncoding=utf8&serverTimezone=Asia/Shanghai
+    username: root
+    password: 123456  #
+    save_1:
+      driver-class-name: com.mysql.cj.jdbc.Driver
+      type: com.alibaba.druid.pool.DruidDataSource #设置自己的数据源类型，不设置就是使用的默认的
+      url: jdbc:mysql://localhost:3306/information_schema?useEncode=true&characterEncoding=utf8&serverTimezone=Asia/Shanghai
+      username: root
+      password: 123456
+    druid:
+      filters: stat,wall
+      ##同时连接的最大连接数
+      max-active: 500
+      ##初始化连接时,创建的连接数
+      initial-size: 100
+      ##最大等待时间,单位ms毫秒
+      max-wait: 60000
+      ##允许的最大空闲连接数
+      min-idle: 50
+      ##控制空闲连接的回收周期 60000毫秒
+      time-between-eviction-runs-millis: 60000
+      ##连接空闲时间大于该值并且池中空闲连接大于minIdle则关闭该连接 300000
+      min-evictable-idle-time-millis: 300000
+      ##开启定时校验
+      test-while-idle: true
+      ##在borrowObject时,对得到的连接是否进行校验,false代表不校验
+      test-on-borrow: false
+      ##在returnObject时,对返回的连接是否进行校验
+      test-on-return: false
+      ##是否缓存preparedStatement,也就是PSCache
+      pool-prepared-statements: true
+      ##要启用PSCache，必须配置大于0，当大于0时，poolPreparedStatements自动触发修改为true。
+      max-open-prepared-statements: 20
+      ##asyncInit是1.1.4中新增加的配置，如果有initialSize数量较多时，打开会加快应用启动时间
+      async-init: true
+
+      #####配置监控Druid的监控#############
+      #配置servlet可用
+      stat-view-servlet.enabled: true
+      ##配置计数器不清零
+      reset-stat-enable: false
+      #配置登录监控页面的用户名
+      stat-view-servlet.login-username: admin
+      #配置化登录监控页面的密码
+      stat-view-servlet.login-password: 123456
+      #设置访问监控页面的url
+      stat-view-servlet.url-pattern: /druid/*
+      #允许哪个ip访问，保证数据的访问安全性
+      stat-view-servlet.allow: 127.0.0.1
+      #拒绝谁访问
+      #stat-view-servlet.deny: ...
+      ###对配置的资源不进行过滤
+    #  web-stat-filter.exclusions: /druid/*,*.js,*.gif,*.jpg,*.png,*.css,*.ico
+
+      #druid uri monitor
+      web-stat-filter:
+        enabled: true
+        url-pattern: /*
+        exclusions: /druid/*,*.js,*.gif,*.jpg,*.png,*.css,*.ico
+        session-stat-enable: true
+        session-stat-max-count: 1000
+
+      aop-patterns: "com.example.demo_cc.service.*"
+
+
+
+
+
+
+

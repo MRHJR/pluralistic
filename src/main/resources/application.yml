@@ -1,0 +1,11 @@
+server:
+  port: 9321
+spring:
+  application:
+    name: pluralistic
+  profiles:
+    active: datasource
+  mvc:
+    view:
+      prefix: /jsp/
+      suffix: .jsp
